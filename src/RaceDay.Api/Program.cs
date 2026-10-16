@@ -116,6 +116,7 @@ app.MapPut("/api/users/me", async (UpdateProfileRequest req, ClaimsPrincipal pri
     await db.SaveChangesAsync();
     return Results.Ok(PublicUser(user));
 }).RequireAuthorization().WithTags("User Profile").WithSummary("Update the signed-in user's profile");
+//End of Profile
 
 // Events: public read, organiser CRUD limited to events assigned to that organiser.
 app.MapGet("/api/events", async (RaceDayDbContext db) =>
