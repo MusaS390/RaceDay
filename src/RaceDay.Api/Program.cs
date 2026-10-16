@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("RaceDay")
     ?? "Server=(localdb)\\MSSQLLocalDB;Database=RaceDay;Trusted_Connection=True;TrustServerCertificate=True;";
 
-builder.Services.AddDbContext<RaceDayDbContext>(o => o.UseSqlServer(connectionString));
+builder.Services.AddDbContext<RaceDayDbContext>(o => o.UseSqlServer(connectionString));//SQL Server
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
