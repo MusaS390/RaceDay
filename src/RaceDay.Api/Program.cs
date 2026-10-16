@@ -98,7 +98,7 @@ app.MapPost("/api/auth/logout", (HttpContext ctx) =>
     return Results.NoContent();
 }).RequireAuthorization().WithTags("Authentication").WithSummary("End the current session");
 
-// Profile
+//Start of Profile 
 app.MapGet("/api/users/me", async (ClaimsPrincipal principal, RaceDayDbContext db) =>
 {
     var user = await db.Users.FindAsync(CurrentUserId(principal));
