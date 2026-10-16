@@ -250,7 +250,7 @@ app.MapPost("/api/enrolments/{id:int}/result", async (int id, ResultRequest req,
     db.Results.Add(result); await db.SaveChangesAsync();
     return Results.Created($"/api/enrolments/{id}/result", result);
 }).RequireAuthorization("Organiser").WithTags("Results").WithSummary("Record a result for an enrolment in an event managed by the organiser");
-
+// Retrieve the list of race events from the database.
 app.MapPut("/api/results/{id:int}", async (int id, ResultRequest req, ClaimsPrincipal p, RaceDayDbContext db) =>
 {
     var result = await db.Results.Include(x => x.Enrolment).ThenInclude(x => x.Category).ThenInclude(x => x.Event).ThenInclude(x => x.EventOrganisers)
