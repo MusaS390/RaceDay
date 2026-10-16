@@ -62,6 +62,7 @@ static object PublicUser(User u) => new { u.UserId, u.FullName, u.Email, u.Role,
 static async Task<bool> OwnsEvent(RaceDayDbContext db, int eventId, int userId) =>
     await db.EventOrganisers.AnyAsync(x => x.EventId == eventId && x.UserId == userId);
 
+// Configure authorization to control access to protected endpoints.
 //Authentication
 app.MapPost("/api/auth/register", async (RegisterRequest req, RaceDayDbContext db, HttpContext ctx) =>
 {
