@@ -191,7 +191,7 @@ app.MapDelete("/api/categories/{id:int}", async (int id, ClaimsPrincipal p, Race
     db.Categories.Remove(c); await db.SaveChangesAsync(); return Results.NoContent();
 }).RequireAuthorization("Organiser").WithTags("Categories").WithSummary("Delete a category");
 
-// Enrolments
+//Enrolements
 app.MapPost("/api/categories/{id:int}/enrolments", async (int id, EnrolmentRequest req, ClaimsPrincipal p, RaceDayDbContext db) =>
 {
     var userId = CurrentUserId(p);
