@@ -16,7 +16,9 @@ var connectionString = builder.Configuration.GetConnectionString("RaceDay")
 builder.Services.AddDbContext<RaceDayDbContext>(o => o.UseSqlServer(connectionString));//SQL Server
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
+
 {
+    //API Cookie
     options.Cookie.Name = ".RaceDay.Session";
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
