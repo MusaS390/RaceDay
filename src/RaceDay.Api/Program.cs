@@ -277,3 +277,4 @@ app.Run();
 public partial class Program { }
 //End Of Program
 //Start the API and listen for incoming HTTP requests.
+//Register Entity Framework Core to manage database operations
