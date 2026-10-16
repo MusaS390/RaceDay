@@ -156,7 +156,8 @@ app.MapDelete("/api/events/{id:int}", async (int id, ClaimsPrincipal p, RaceDayD
     db.Events.Remove(e); await db.SaveChangesAsync(); return Results.NoContent();
 }).RequireAuthorization("Organiser").WithTags("Events").WithSummary("Delete an event managed by the current organiser");
 
-// Categories
+
+//Categories
 app.MapGet("/api/events/{id:int}/categories", async (int id, RaceDayDbContext db) =>
 {
     if (!await db.Events.AnyAsync(x => x.EventId == id)) return Results.NotFound();
