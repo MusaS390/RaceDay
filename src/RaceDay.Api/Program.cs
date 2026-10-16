@@ -279,4 +279,5 @@ public partial class Program { }
 //Start the API and listen for incoming HTTP requests.
 //Register Entity Framework Core to manage database operations
 //Register services required to process API requests.
+//Register password hashing services to securely handle user passwords.
 
