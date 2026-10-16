@@ -48,6 +48,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 var app = builder.Build();
+//Register the database context used to access RaceDay data.
 
 app.UseSwagger();
 app.UseSwaggerUI();
