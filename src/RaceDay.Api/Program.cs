@@ -33,6 +33,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
+    //Start of API Swagger
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "RaceDay API", Version = "v1", Description = "Race event management API. Login first to establish a server-side session." });
     c.AddSecurityDefinition("cookie", new OpenApiSecurityScheme
     {
