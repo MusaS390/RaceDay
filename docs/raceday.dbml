@@ -1,0 +1,80 @@
+Project RaceDay {
+  database_type: "SQL Server"
+  Note: "RaceDay Part 1 database model. Import this DBML into dbdiagram.io."
+}
+
+Table Users {
+  UserId int [pk, increment]
+  FullName nvarchar(100) [not null]
+  Email nvarchar(255) [not null, unique]
+  PasswordHash nvarchar(255) [not null]
+  Role nvarchar(20) [not null, default: 'Participant']
+  CreatedAt datetime2 [not null, default: `GETDATE()`]
+
+  Note: "Role must be Organiser or Participant."
+}
+
+Table Events {
+  EventId int [pk, increment]
+  Name nvarchar(150) [not null]
+  Description nvarchar(1000)
+  Location nvarchar(255) [not null]
+  EventDate date [not null]
+  CreatedAt datetime2 [not null, default: `GETDATE()`]
+}
+
+Table EventOrganisers {
+  EventId int [not null]
+  UserId int [not null]
+
+  indexes {
+    (EventId, UserId) [pk]
+  }
+}
+
+Table Categories {
+  CategoryId int [pk, increment]
+  EventId int [not null]
+  Name nvarchar(100) [not null]
+  DistanceKm decimal(5,2) [not null]
+  MaxParticipants int [not null]
+
+  indexes {
+    (EventId, Name) [unique]
+  }
+}
+
+Table Enrolments {
+  EnrolmentId int [pk, increment]
+  CategoryId int [not null]
+  ParticipantId int [not null]
+  EnrolmentDate datetime2 [not null, default: `GETDATE()`]
+  EmergencyContact nvarchar(150)
+
+  indexes {
+    (CategoryId, ParticipantId) [unique]
+  }
+}
+
+Table Results {
+  ResultId int [pk, increment]
+  EnrolmentId int [not null, unique]
+  FinishTime time [not null]
+  Position int [not null]
+}
+
+Table RefreshTokens {
+  RefreshTokenId int [pk, increment]
+  UserId int [not null]
+  Token nvarchar(500) [not null, unique]
+  ExpiresAt datetime2 [not null]
+  CreatedAt datetime2 [not null, default: `GETDATE()`]
+}
+
+Ref: EventOrganisers.EventId > Events.EventId
+Ref: EventOrganisers.UserId > Users.UserId
+Ref: Categories.EventId > Events.EventId
+Ref: Enrolments.CategoryId > Categories.CategoryId
+Ref: Enrolments.ParticipantId > Users.UserId
+Ref: Results.EnrolmentId - Enrolments.EnrolmentId
+Ref: RefreshTokens.UserId > Users.UserId

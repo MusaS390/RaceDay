@@ -1,0 +1,30 @@
+name: Validate RaceDay planning documents
+on:
+  push:
+    branches: [ main, part2, master ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check required documentation
+        shell: bash
+        run: |
+          set -e
+          test -d docs
+          test -f docs/erd.png
+          test -f docs/raceday.dbml
+          test -f docs/raceday.sql
+          test -f docs/RaceDay_API_Endpoint_Plan.pdf
+          test -f docs/api-endpoints.md
+          grep -q "CREATE DATABASE RaceDay" docs/raceday.sql
+          grep -q "CREATE TABLE dbo.Users" docs/raceday.sql
+          grep -q "CREATE TABLE dbo.Events" docs/raceday.sql
+          grep -q "CREATE TABLE dbo.Categories" docs/raceday.sql
+          grep -q "CREATE TABLE dbo.Enrolments" docs/raceday.sql
+          grep -q "CREATE TABLE dbo.Results" docs/raceday.sql
+          grep -q "Table Users" docs/raceday.dbml
+          echo "RaceDay documentation validation passed."
