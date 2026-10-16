@@ -229,7 +229,7 @@ app.MapGet("/api/events/{id:int}/enrolments", async (int id, ClaimsPrincipal p, 
         .ToListAsync());
 }).RequireAuthorization("Organiser").WithTags("Event Enrolments").WithSummary("View enrolments for an event managed by the organiser");
 
-// Results
+//Results
 app.MapGet("/api/enrolments/{id:int}/result", async (int id, ClaimsPrincipal p, RaceDayDbContext db) =>
 {
     var uid = CurrentUserId(p);
